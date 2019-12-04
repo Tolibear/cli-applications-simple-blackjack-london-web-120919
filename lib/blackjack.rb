@@ -1,3 +1,5 @@
+require "pry"
+
 def welcome
   puts "Welcome to the Blackjack Table"
 end
@@ -19,7 +21,7 @@ def get_user_input
 end
 
 def end_game(card_total)
-  "Sorry, you hit #{card_total}. Thanks for playing!"
+  puts "Sorry, you hit #{card_total}. Thanks for playing!"
 end
 
 def initial_round
@@ -31,21 +33,52 @@ def initial_round
 end
 
 def hit?(total)
-  prompt_user
-  response = get_user_input
-  if response == "s"
-    return total
-  elsif response == "h"
-    new_card = deal_card
-    total += new_card
-    return total
-  else
-    invalid_command
+  @total = total
+  def question_sequence
+    prompt_user
+    @response = get_user_input
+    if @response == "s"
+      return @total
+    elsif @response == "h"
+      new_card = deal_card
+      @total += new_card
+      return @total
+    else
+      invalid_command
+    end
   end
+
+  question_sequence
+
+  until @response == "h" || "s" do
+    question_sequence
+  end
+  return @total
 end
 
-def invalid_command
 
+# def hit?(total)
+#   def question_sequence
+#     prompt_user
+#     @response = get_user_input
+#   end
+#   question_sequence
+#   while @response != "h" || "s" do
+#     invalid_command
+#     question_sequence
+#   end
+#
+#   if @response == "s"
+#     return total
+#   else
+#     new_card = deal_card
+#     total += new_card
+#     return total
+#   end
+# end
+
+def invalid_command
+  puts "Please enter a valid command"
 end
 
 #####################################################
