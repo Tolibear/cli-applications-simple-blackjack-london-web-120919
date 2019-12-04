@@ -33,49 +33,20 @@ def initial_round
 end
 
 def hit?(total)
-  @total = total
-  def question_sequence
     prompt_user
     @response = get_user_input
-    if @response == "s"
-      return @total
-    elsif @response == "h"
-      new_card = deal_card
-      @total += new_card
-      return @total
-    else
-      invalid_command
-    end
-  end
 
-  question_sequence
-
-  until @response == "h" || "s" do
-    question_sequence
+  until @response == "h" ||  @response == "s" do
+    invalid_command
+    prompt_user
+    @response = get_user_input
   end
-  return @total
+    if @response == "h"
+    total += deal_card
+  end
+  total
 end
 
-
-# def hit?(total)
-#   def question_sequence
-#     prompt_user
-#     @response = get_user_input
-#   end
-#   question_sequence
-#   while @response != "h" || "s" do
-#     invalid_command
-#     question_sequence
-#   end
-#
-#   if @response == "s"
-#     return total
-#   else
-#     new_card = deal_card
-#     total += new_card
-#     return total
-#   end
-# end
 
 def invalid_command
   puts "Please enter a valid command"
@@ -86,5 +57,5 @@ end
 #####################################################
 
 def runner
-  # code runner here
+  
 end
